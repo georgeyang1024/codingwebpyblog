@@ -1,0 +1,17 @@
+$def with (key)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form id="upload-form" action="/blog/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"/> <br/>
+    <input type="hidden" name="key" value="$:key" />
+    <input type="submit" value="Upload"/>　　
+</form>
+
+</body>
+</html>

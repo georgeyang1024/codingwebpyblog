@@ -1,0 +1,56 @@
+$def with (content)
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<title>$content.title </title>
+
+
+		<link href="/style.css" rel="stylesheet" type="text/css" />
+		  <!-- 收藏logo图标 -->
+    	<link rel="bookmark"  type="image/x-icon"  href="/img/favicon.png"/>
+		<!-- 网站显示页logo图标 -->
+    	<link rel="shortcut icon" href="/img/favicon.png">
+
+		<script>
+			(function(){
+				var bp = document.createElement('script');
+				bp.src = '//push.zhanzhang.baidu.com/push.js';
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(bp, s);
+			})();
+		</script>
+
+	</head>
+
+	<body class="w90" data-spy="scroll" data-target=".bs-docs-sidebar" background="/img/bg.jpg" style="background-repeat:repeat">
+		<header>
+			<h1>GeorgeYang'Blog</h1>
+			<p>my technology blog</p>
+
+			<ul id="nav">
+				<li><a href="/index">首页</a></li>
+				<li><a href="/blog/about">关于</a></li>
+			</ul>
+		</header>
+		<div>
+
+            $:content
+
+			<div class="footer">
+				<center>
+					<p>Copyright @ 2015 george.yang'blog All rights reserved. Powered by WebPy
+
+					</p>
+				</center>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>
+

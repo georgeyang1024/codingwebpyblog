@@ -1,0 +1,145 @@
+$def with (contentList,newLast,monthList,classificationMap,pageData)
+$var title:Georgeyang blog
+
+					<div id="container">
+				<div id="leftMenu">
+					<div class="lm" id="menu_card">
+						<ul>
+							最新:
+							$if newLast:
+								$for lastBlog in newLast:
+									$if lastBlog['title']:
+										<li>
+											<a href="/blog/read?id=$:lastBlog['id']">$:lastBlog['title']</a>
+										</li>
+							$else:
+								<li>
+									暂无文章
+								</li>
+						</ul>
+					</div>
+
+					<div class="lm" id="menu_card">
+						<ul>
+							日期:
+							$if monthList:
+								$for monthBlog in monthList:
+									$if monthBlog['month']:
+										<li>
+											<a href="/blog/list?month=$:monthBlog['month']">$:monthBlog['month'] ($:int(monthBlog['count']))</a>
+										</li>
+							$else:
+								<li>
+									暂无文章
+								</li>
+						</ul>
+					</div>
+
+					<div class="lm" id="menu_card">
+						<ul>
+							类别:
+							$if classificationMap:
+								$for (k,v) in classificationMap.items():
+									<li>
+										<a href="/blog/list?classification=$:k">$:k ($:v)</a>
+									</li>
+							$else:
+								<li>
+									暂无类别
+								</li>
+						</ul>
+					</div>
+
+					<div class="lm" id="menu_card">
+						<ul>
+							友情链接:
+							<li>
+								<a href="https://github.com/qq179157977" target="_blank">My Github</a>
+							</li>
+
+							<li>
+								<a href="http://blog.csdn.net/u010499721" target="_blank">My csdn Blog</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+
+					$if contentList:
+						$for blogInfo in contentList:
+							<div id="rightArticle">
+								<div class="articleTitle">
+									<a href="/blog/read?id=$:blogInfo['id']"><h1>$:blogInfo['title']</h1></a>
+									<b>tags:$:blogInfo['tag']     创建时间:$:blogInfo['addTime']</b>
+								</div>
+
+								<div class="articleBoby">
+									<hr style="margin-left: 20px; margin-right: 20px; height:3px;border:none;border-top:2px dotted gainsboro;" />
+
+									<article class="markdown-body entry-content" itemprop="mainContentOfPage">
+										$:blogInfo['introduction']
+									</article>
+
+								</div>
+
+							</div>
+
+					$else:
+						<p>
+							暂无文章
+						</p>
+
+
+<!--<div class="nav_page">-->
+	
+				<div class="pagination">
+	<!--test-->
+	<ul>
+	$if pageData['hasPrev'] and pageData['page']<=pageData['pageCount']:
+		<li><a href="/blog/list?page=$:(pageData['page']-1)&month=$:pageData['month']&classification=$:pageData['classification']" class="prev">&lt;</a></li>
+
+	$if pageData['pageCount']>=7:
+		$if pageData['currPage']<=3:
+			$for i in range (4):
+				$if (i+1)==pageData['currPage']:
+					<li><span class="page current">$:(i+1)</span></li>
+				$else:
+					<li><a href="/blog/list?page=$:(i+1)&month=$:pageData['month']&classification=$:pageData['classification']" class="page">$:(i+1)</a></li>
+			<li><span class="page">...</span></li> 
+			<li><a href="/blog/list?page=$:pageData['pageCount']&month=$:pageData['month']&classification=$:pageData['classification']" class="page">$:pageData['pageCount']</a></li>
+		$elif pageData['currPage']>=pageData['pageCount']-2:
+			<li><a href="/blog/list?page=1&month=$:pageData['month']&classification=$:pageData['classification']" class="page">1</a></li>
+			<li><span class="page">...</span></li>
+			$for j in range (pageData['pageCount']-4,pageData['pageCount']):
+				$if (j+1)==pageData['currPage']:
+					<li><span class="page current">$:(j+1)</span></li>
+				$else:
+					<li><a href="/blog/list?page=$:(j+1)&month=$:pageData['month']&classification=$:pageData['classification']" title="$:(j+1)" class="page">$:(j+1)</a></li>
+		$else:
+			<li><a href="/blog/list?page=1&month=$:pageData['month']&classification=$:pageData['classification']" class="page">1</a></li>  
+			<li><span class="page">...</span></li>  
+			$for k in range (pageData['currPage']-2,pageData['currPage']+1):
+				$if (k+1)==pageData['currPage']:
+					<li><span class="page current">$:(k+1)</span></li>
+				$else:
+					<li><a href="/blog/list?page=$:(k+1)&month=$:pageData['month']&classification=$:pageData['classification']" title="$:(k+1)" class="page">$:(k+1)</a></li>
+			<li><span class="page">...</span></li> 
+			<li><a href="/blog/list?page=$:pageData['pageCount']&month=$:pageData['month']&classification=$:pageData['classification']" class="page">$:pageData['pageCount']</a></li>
+	$else:
+		$if pageData['pageCount']>1:
+			$for i in range (pageData['pageCount']):
+				$if i==pageData['currPage']:
+					<li><span class="page current">$:i</span></li>
+				$else:
+					<li><a href="/blog/list?page=$:i&month=$:pageData['month']&classification=$:pageData['classification']" title="$:i" class="page">$:i</a></li>
+
+	$if pageData['hasNext'] and pageData['page']<=pageData['pageCount']:
+		<li><a href="/blog/list?page=$:(pageData['page']+1)&month=$:pageData['month']&classification=$:pageData['classification']" class="next">&gt;</a></li>
+	</ul>
+
+				</div>
+				
+			<!--</div>-->
+				<div class="push"></div>
+
+			</div>
